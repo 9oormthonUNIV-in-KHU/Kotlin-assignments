@@ -40,7 +40,7 @@ fun Week2Screen() {
         targetValue = if (isRotated) 0f else 180f,
         animationSpec = tween(durationMillis = 1000), label = ""
     )
-    val infoList = listOf("이름", "나이", "학교", "별명", "mbti")
+    val infoList = listOf("이름", "나이", "학교", "학과")
     val context = LocalContext.current
     var infoTexts by remember { mutableStateOf(List(infoList.size) { "" }) }
 
