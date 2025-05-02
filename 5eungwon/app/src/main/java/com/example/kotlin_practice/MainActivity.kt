@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.kotlin_practice.ui.theme.Kotlin_practiceTheme
+import com.example.kotlin_practice.myprofile.Myprofile
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Kotlin_practiceTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    Myprofile(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
