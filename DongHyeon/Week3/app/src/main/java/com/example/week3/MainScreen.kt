@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -46,9 +45,8 @@ fun MainScreen(
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val height = (LocalConfiguration.current.screenHeightDp - 60) / partList.value.size
         partList.value.forEach {
-            ListRow(it, height) { part ->
+            ListRow(it, Modifier.weight(1f)) { part ->
                 navController.navigate("PartLayout/$part")
             }
         }
@@ -58,12 +56,11 @@ fun MainScreen(
 @Composable
 fun ListRow(
     part: String,
-    height: Int,
+    modifier: Modifier,
     onPartScreen: (String) -> Unit
 ) {
     Row(
-        modifier = Modifier
-            .height(height.dp)
+        modifier = modifier
             .fillMaxWidth()
             .padding(5.dp)
             .border(1.dp, Color.Black, RoundedCornerShape(16.dp))
