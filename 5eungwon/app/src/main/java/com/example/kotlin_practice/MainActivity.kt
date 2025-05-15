@@ -11,8 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.kotlin_practice.memo_search.Memo
+import com.example.kotlin_practice.memo_search.Memo_search
+import com.example.kotlin_practice.memo_search.Search
 import com.example.kotlin_practice.ui.theme.Kotlin_practiceTheme
-import com.example.kotlin_practice.myprofile.Myprofile
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +25,27 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Kotlin_practiceTheme {
+                val navController = rememberNavController()
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Myprofile(
+                    // ✅ NavHost는 Scaffold 안에서만 사용
+                    NavHost(
+                        navController = navController,
+                        startDestination = "memo_search",
                         modifier = Modifier.padding(innerPadding)
-                    )
+                    ) {
+                        composable("memo_search") {
+                            Memo_search(navController = navController)
+                        }
+                        composable("memo/{label}") { backStackEntry ->
+                            val label = backStackEntry.arguments?.getString("label") ?: ""
+                            Memo(navController = navController,label=label)
+                        }
+                        composable("search/{label}") { backStackEntry ->
+                            val label = backStackEntry.arguments?.getString("label") ?: ""
+                            Search(navController = navController,label=label)
+                        }
+                    }
                 }
             }
         }
